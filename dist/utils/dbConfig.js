@@ -14,7 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const URL = "mongodb://127.0.0.1:27017/PLPDB";
+// const URL: string = "mongodb://127.0.0.1:27017/PLPDB";
+const URL = "mongodb+srv://PeterPan:PeterPan@codelab.eqkgv.mongodb.net/PLPDB?retryWrites=true&w=majority";
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.connect(URL);
 });
