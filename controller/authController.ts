@@ -142,6 +142,22 @@ export const readAllUser = async (req: Request, res: Response) => {
   }
 };
 
+export const readUserByClass = async (req: Request, res: Response) => {
+  try {
+    const { classSet } = req.body;
+    const user: any = await userModel.find({ classSet });
+
+    return res.status(statusCode.CREATED).json({
+      message: "viewing all users",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(statusCode.BAD_REQUEST).json({
+      message: "Error",
+    });
+  }
+};
+
 export const readOneUser = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
@@ -195,7 +211,7 @@ export const updateOneUser = async (req: any, res: Response) => {
 export const updateOneUserName = async (req: Request, res: Response) => {
   try {
     const { userID } = req.params;
-    const { userName } = req.body;
+    const { userName, classSet, bio } = req.body;
 
     const user: any = await userModel.findById(userID);
 
@@ -204,6 +220,8 @@ export const updateOneUserName = async (req: Request, res: Response) => {
         userID,
         {
           userName,
+          classSet,
+          bio,
         },
         { new: true }
       );

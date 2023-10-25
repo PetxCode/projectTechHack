@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateOneUserName = exports.updateOneUser = exports.readOneUser = exports.readAllUser = exports.signInUser = exports.verifyUser = exports.createUser = void 0;
+exports.updateOneUserName = exports.updateOneUser = exports.readOneUser = exports.readUserByClass = exports.readAllUser = exports.signInUser = exports.verifyUser = exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const statusCode_1 = require("../utils/statusCode");
@@ -135,6 +135,22 @@ const readAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.readAllUser = readAllUser;
+const readUserByClass = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { classSet } = req.body;
+        const user = yield userModel_1.default.find({ classSet });
+        return res.status(statusCode_1.statusCode.CREATED).json({
+            message: "viewing all users",
+            data: user,
+        });
+    }
+    catch (error) {
+        return res.status(statusCode_1.statusCode.BAD_REQUEST).json({
+            message: "Error",
+        });
+    }
+});
+exports.readUserByClass = readUserByClass;
 const readOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
@@ -183,11 +199,13 @@ exports.updateOneUser = updateOneUser;
 const updateOneUserName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
-        const { userName } = req.body;
+        const { userName, classSet, bio } = req.body;
         const user = yield userModel_1.default.findById(userID);
         if (user) {
             const mainUser = yield userModel_1.default.findByIdAndUpdate(userID, {
                 userName,
+                classSet,
+                bio,
             }, { new: true });
             return res.status(statusCode_1.statusCode.CREATED).json({
                 message: "viewing all users",

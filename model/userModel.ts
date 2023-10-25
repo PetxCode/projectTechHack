@@ -9,6 +9,9 @@ interface iUser {
   avatar: string;
   avatarID: string;
 
+  bio: string;
+  classSet: string;
+
   follower: Array<string>;
   followering: Array<string>;
   following: Array<string>;
@@ -37,6 +40,14 @@ const userModel = new mongoose.Schema<iUserData>(
     },
 
     token: {
+      type: String,
+    },
+
+    bio: {
+      type: String,
+    },
+
+    classSet: {
       type: String,
     },
 

@@ -21,6 +21,12 @@ const userModel = new mongoose_1.default.Schema({
     token: {
         type: String,
     },
+    bio: {
+        type: String,
+    },
+    classSet: {
+        type: String,
+    },
     avatar: {
         type: String,
     },
