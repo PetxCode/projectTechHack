@@ -10,7 +10,7 @@ const upload = (0, multer_1.default)().single("avatar");
 const router = (0, express_1.Router)();
 router.route("/one-user/:userID").get(authController_1.readOneUser);
 router.route("/all-user").get(authController_1.readAllUser);
-router.route("/user-class").get(authController_1.readUserByClass);
+router.route("/user-class").post(authController_1.readUserByClass);
 router.route("/sign-user").post(authController_1.signInUser);
 router.route("/create-user").post(authController_1.createUser);
 router.route("/verify-user/:userID").get(authController_1.verifyUser);
