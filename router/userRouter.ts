@@ -16,7 +16,8 @@ const router = Router();
 
 router.route("/one-user/:userID").get(readOneUser);
 router.route("/all-user").get(readAllUser);
-router.route("/user-class").get(readUserByClass);
+
+router.route("/user-class").post(readUserByClass);
 
 router.route("/sign-user").post(signInUser);
 router.route("/create-user").post(createUser);
