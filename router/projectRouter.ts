@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createProject,
+  deleteProject,
   readAllProject,
   readOneProject,
   readProject,
@@ -16,6 +17,9 @@ const upload = multer().single("avatar");
 const router = Router();
 
 router.route("/create-project/:userID").post(upload, createProject);
+
+router.route("/delete-project/:userID/:projectID").post(deleteProject);
+
 router.route("/read-project/:userID").get(readProject);
 
 router.route("/read-one-project/:projectID").get(readOneProject);

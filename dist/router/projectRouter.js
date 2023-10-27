@@ -10,6 +10,7 @@ const multer_1 = __importDefault(require("multer"));
 const upload = (0, multer_1.default)().single("avatar");
 const router = (0, express_1.Router)();
 router.route("/create-project/:userID").post(upload, projectController_1.createProject);
+router.route("/delete-project/:userID/:projectID").post(projectController_1.deleteProject);
 router.route("/read-project/:userID").get(projectController_1.readProject);
 router.route("/read-one-project/:projectID").get(projectController_1.readOneProject);
 router.route("/read-all-project").get(projectController_1.readAllProject);

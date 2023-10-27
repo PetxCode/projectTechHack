@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readAllProject = exports.readOneProject = exports.readProject = exports.createProject = void 0;
+exports.readAllProject = exports.readOneProject = exports.readProject = exports.deleteProject = exports.createProject = void 0;
 const statusCode_1 = require("../utils/statusCode");
 const userModel_1 = __importDefault(require("../model/userModel"));
 const projectModel_1 = __importDefault(require("../model/projectModel"));
@@ -55,6 +55,32 @@ const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createProject = createProject;
+const deleteProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userID, projectID } = req.params;
+        const user = yield userModel_1.default.findById(userID);
+        if (user) {
+            const project = yield projectModel_1.default.findByIdAndDelete(projectID);
+            user === null || user === void 0 ? void 0 : user.projects.pull(new mongoose_1.default.Types.ObjectId(project._id));
+            user.save();
+            return res.status(statusCode_1.statusCode.CREATED).json({
+                message: "project delete",
+                data: project,
+            });
+        }
+        else {
+            return res.status(statusCode_1.statusCode.BAD_REQUEST).json({
+                message: "user doesn't exist",
+            });
+        }
+    }
+    catch (error) {
+        return res.status(statusCode_1.statusCode.BAD_REQUEST).json({
+            message: "Error",
+        });
+    }
+});
+exports.deleteProject = deleteProject;
 const readProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
