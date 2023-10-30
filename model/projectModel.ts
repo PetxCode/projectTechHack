@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 interface iProject {
   url: string;
+  githubURL: string;
   title: string;
   task: string;
   motivation: string;

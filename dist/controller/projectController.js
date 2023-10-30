@@ -21,7 +21,7 @@ const stream_1 = require("../utils/stream");
 const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userID } = req.params;
-        const { title, stack, motivation, url, task } = req.body;
+        const { title, githubURL, stack, motivation, url, task } = req.body;
         const user = yield userModel_1.default.findById(userID);
         const { secure_url, public_id } = yield (0, stream_1.streamUpload)(req);
         if (user) {
@@ -29,6 +29,7 @@ const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 title,
                 motivation,
                 url,
+                githubURL,
                 task,
                 stack,
                 avatar: secure_url,

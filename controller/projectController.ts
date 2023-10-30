@@ -8,7 +8,7 @@ import { streamUpload } from "../utils/stream";
 export const createProject = async (req: any, res: Response) => {
   try {
     const { userID } = req.params;
-    const { title, stack, motivation, url, task } = req.body;
+    const { title, githubURL, stack, motivation, url, task } = req.body;
 
     const user: any = await userModel.findById(userID);
 
@@ -19,6 +19,7 @@ export const createProject = async (req: any, res: Response) => {
         title,
         motivation,
         url,
+        githubURL,
         task,
         stack,
 
